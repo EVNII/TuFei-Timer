@@ -1,4 +1,4 @@
-from utility.windows import get_windows_frames
+from src.utility.windows import get_windows_frames
 
 from time import time
 from typing import Optional

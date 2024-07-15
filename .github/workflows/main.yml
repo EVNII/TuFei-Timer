@@ -40,11 +40,11 @@ jobs:
       # Build python script into a stand-alone exe
       - uses: Nuitka/Nuitka-Action@main
         with:
-          script-name: src/__main__.py
+          script-name: tufei_timer.py
           access-token: ${{ secrets.NUITKA_COMMERCIAL_ACCESS_TOKEN }}
           onefile: true
           enable-plugins: pyside6
-          disable-console: true
+          windows-console-mode: disable
           windows-icon-from-ico: assets/images/logo.png
           output-file: 土肥杯计时器
           include-data-dir: assets=assets

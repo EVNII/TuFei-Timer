@@ -1,12 +1,11 @@
-from . import Widget
-from .home_page import HomePage
-import asyncio
+from src.view.widget import Widget
+from src.view.home_page import HomePage
+from src.utility.get_correct_file_path import get_correct_file_path
 
 from PySide6.QtCore import QSize, QEventLoop, QTimer
 from PySide6.QtGui import QIcon
 from qfluentwidgets import NavigationItemPosition, FluentWindow, SplashScreen
 from qfluentwidgets import FluentIcon as FIF
-
 
 class MainWindow(FluentWindow):
     """ 主界面 """
@@ -39,5 +38,5 @@ class MainWindow(FluentWindow):
     def initWindow(self):
         self.resize(1280, 720)
         # self.setFixedSize(1280, 720)
-        self.setWindowIcon(QIcon('./assets/images/logo.png'))
+        self.setWindowIcon(QIcon(get_correct_file_path('assets/images/logo.png')))
         self.setWindowTitle('土肥杯计时器')

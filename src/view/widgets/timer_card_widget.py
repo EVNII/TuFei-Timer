@@ -1,8 +1,11 @@
-from skimage.color import rgb2gray
-from utility.ssim_optimizer import SSIMOptimizer
-from math import floor
+from src.utility.ssim_optimizer import SSIMOptimizer
+from src.utility.get_correct_file_path import get_correct_file_path
 
+from math import floor
 from time import time
+
+from skimage.color import rgb2gray
+
 import cv2
 import numpy as np
 
@@ -34,11 +37,11 @@ class TimerCardWidget(CardWidget):
         self.mainVBoxLayout = QVBoxLayout(self)
         
 
-        self.comparedImage_day = ImageLabel("./assets/images/loading_daytime.png")
+        self.comparedImage_day = ImageLabel(get_correct_file_path("assets/images/loading_daytime.png"))
         self.comparedImage_day.scaledToWidth(self.width())
         self.comparedImage_day.setBorderRadius(2, 2, 2, 2)
 
-        self.comparedImage_night = ImageLabel("./assets/images/loading_night.png")
+        self.comparedImage_night = ImageLabel(get_correct_file_path("assets/images/loading_night.png"))
         self.comparedImage_night.scaledToWidth(self.width())
         self.comparedImage_night.setBorderRadius(2, 2, 2, 2)
 
@@ -88,12 +91,12 @@ class TimerCardWidget(CardWidget):
 
         self.setLayout(self.mainVBoxLayout)
 
-        self.compared_target_image_day = rgb2gray(cv2.cvtColor(cv2.imread('./assets/images/loading_daytime.png'), cv2.COLOR_BGR2RGB))
+        self.compared_target_image_day = rgb2gray(cv2.cvtColor(cv2.imread(get_correct_file_path('assets/images/loading_daytime.png')), cv2.COLOR_BGR2RGB))
         self.compared_target_image_day = (self.compared_target_image_day * 255).astype(np.uint8)
 
         self.ssimOpt_day = SSIMOptimizer(self.compared_target_image_day)
 
-        self.compared_target_image_night = rgb2gray(cv2.cvtColor(cv2.imread('./assets/images/loading_night.png'), cv2.COLOR_BGR2RGB))
+        self.compared_target_image_night = rgb2gray(cv2.cvtColor(cv2.imread(get_correct_file_path('assets/images/loading_night.png')), cv2.COLOR_BGR2RGB))
         self.compared_target_image_night = (self.compared_target_image_night * 255).astype(np.uint8)
 
         self.ssimOpt_night = SSIMOptimizer(self.compared_target_image_night)

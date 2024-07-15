@@ -16,7 +16,7 @@ class Window:
     hwnd: int
     title: str
 
-def get_windows_bytitle(expected_title: str, exact : bool = False) -> list[Window]:
+def get_windows_bytitle(expected_title: str | list[str], exact : bool = False) -> list[Window]:
     def window_callback(hwnd: int, windows: list[Window]) -> None:
         title = win32gui.GetWindowText(hwnd)
         if title:
@@ -29,7 +29,10 @@ def get_windows_bytitle(expected_title: str, exact : bool = False) -> list[Windo
     if exact:
         return [w for w in windows if w.title == expected_title]
     else:
-        return [w for w in windows if w.title in expected_title]
+        if isinstance(expected_title, list):
+            return [w for w in windows if (any( [ e in w.title for e in expected_title ] ) )]
+        else:
+            return [w for w in windows if expected_title in w.title]
     
 from contextlib import contextmanager
 

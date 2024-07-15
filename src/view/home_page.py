@@ -1,10 +1,10 @@
-from utility.windows import Window, get_windows_bytitle
-from utility.run_sync_function_in_executor import run_sync_function_in_executor
-from utility.capture_window_thread import CaptureWindowThread
-from utility.compare_thread import CompareThread
+from src.utility.windows import Window, get_windows_bytitle
+from src.utility.run_sync_function_in_executor import run_sync_function_in_executor
+from src.utility.capture_window_thread import CaptureWindowThread
+from src.utility.compare_thread import CompareThread
 
-from view.widgets.screen_display_widget import ScreenDisplayWidget
-from view.widgets.timer_card_widget import TimerCardWidget
+from src.view.widgets.screen_display_widget import ScreenDisplayWidget
+from src.view.widgets.timer_card_widget import TimerCardWidget
 
 import asyncio
 from PySide6.QtCore import Qt
@@ -79,7 +79,7 @@ class HomePage(QFrame):
 
 
     async def onUpdateWindowsAsync(self):
-        HomePage.windowsList = await run_sync_function_in_executor(get_windows_bytitle, "原神")
+        HomePage.windowsList = await run_sync_function_in_executor(get_windows_bytitle, ["原神", "Genshin"])
 
         self.windowsComboBox.clear()
         self.windowsComboBox.addItems([w.title for w in HomePage.windowsList])

@@ -1,10 +1,10 @@
-from utility.capture_window_thread import CaptureWindowThread
+from src.utility.capture_window_thread import CaptureWindowThread
 
 from time import time
 
 from PySide6.QtWidgets import QGraphicsScene, QGraphicsView, QGraphicsPixmapItem, QVBoxLayout
 from PySide6.QtGui import QPixmap, QImage
-from PySide6.QtCore import Qt, QTimer
+from PySide6.QtCore import Qt
 
 from qfluentwidgets import CardWidget
 
