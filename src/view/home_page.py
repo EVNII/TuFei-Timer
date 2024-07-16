@@ -27,7 +27,7 @@ class HomePage(QFrame):
 
         self.selectWindowsHBoxLayout = QHBoxLayout()
 
-        self.gameDisplayWidget = ScreenDisplayWidget()
+        self.gameDisplayWidget = ScreenDisplayWidget(self)
         
         self.windowsComboBox = ComboBox()
         self.windowsComboBox.setPlaceholderText('请选择原神窗口')
@@ -52,17 +52,21 @@ class HomePage(QFrame):
         self.connectWindowsButton.installEventFilter(ToolTipFilter(self.connectWindowsButton, showDelay=300, position=ToolTipPosition.TOP))
         self.connectWindowsButton.clicked.connect(self.connectWindowsAction.trigger)
 
-        self.selectWindowsHBoxLayout.addWidget(self.windowsComboBox, 0, Qt.AlignmentFlag.AlignLeft)
-        self.selectWindowsHBoxLayout.addWidget(self.updateWindowsButton, 0, Qt.AlignmentFlag.AlignLeft)
-        self.selectWindowsHBoxLayout.addWidget(self.connectWindowsButton, 1, Qt.AlignmentFlag.AlignLeft)
+        self.selectWindowsHBoxLayout.addStretch(0)
+        self.selectWindowsHBoxLayout.addWidget(self.windowsComboBox, 0, Qt.AlignmentFlag.AlignCenter)
+        self.selectWindowsHBoxLayout.addWidget(self.updateWindowsButton, 0, Qt.AlignmentFlag.AlignCenter)
+        self.selectWindowsHBoxLayout.addWidget(self.connectWindowsButton, 0, Qt.AlignmentFlag.AlignCenter)
+        self.selectWindowsHBoxLayout.addStretch(0)
 
-        self.leftVBoxLayout.addWidget(self.gameDisplayWidget)
-        self.leftVBoxLayout.addLayout(self.selectWindowsHBoxLayout)
+        self.leftVBoxLayout.addStretch(0)
+        self.leftVBoxLayout.addWidget(self.gameDisplayWidget, 0, Qt.AlignmentFlag.AlignCenter)
+        self.leftVBoxLayout.addLayout(self.selectWindowsHBoxLayout, 0)
+        self.leftVBoxLayout.addStretch(0)
 
         self.timerCard = TimerCardWidget(self)
 
-        self.mainHBoxLayout.addLayout(self.leftVBoxLayout)
-        self.mainHBoxLayout.addWidget(self.timerCard)
+        self.mainHBoxLayout.addLayout(self.leftVBoxLayout, 2)
+        self.mainHBoxLayout.addWidget(self.timerCard, 1)
         
         self.setLayout(self.mainHBoxLayout)
 
