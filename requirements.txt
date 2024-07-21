@@ -6,3 +6,4 @@ PySide6_Fluent_Widgets[full]==1.5.8
 pywin32==306
 scipy==1.14.0
 scikit-image==0.24.0
+ffmpeg-python

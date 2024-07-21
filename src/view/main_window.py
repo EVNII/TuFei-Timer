@@ -1,5 +1,6 @@
 from src.view.widget import Widget
 from src.view.home_page import HomePage
+from src.view.video_play_page import VideoPlayPage
 from src.utility.get_correct_file_path import get_correct_file_path
 
 from PySide6.QtCore import QSize, QEventLoop, QTimer
@@ -23,6 +24,7 @@ class MainWindow(FluentWindow):
         QTimer.singleShot(2500, loop.quit)
         loop.exec()
         self.homeInterface = HomePage(self)
+        self.videoPlayInterface = VideoPlayPage(self)
         self.settingInterface = Widget('Setting Interface', self)
         self.initNavigation()
 
@@ -30,6 +32,7 @@ class MainWindow(FluentWindow):
 
     def initNavigation(self):
         self.addSubInterface(self.homeInterface, FIF.HOME, 'Home')
+        self.addSubInterface(self.videoPlayInterface, FIF.VIDEO, '视频')
 
         self.navigationInterface.addSeparator()
 

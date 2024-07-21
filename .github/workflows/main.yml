@@ -26,6 +26,30 @@ jobs:
     
       # Check-out repository
       - uses: actions/checkout@v3
+
+      - name: Create bin directory
+        run: mkdir -p bin  # For Unix-based runners
+        # For Windows runners, use: run: mkdir bin
+
+      - name: Download FASTSSIM.dll
+        run: curl -o bin/ssim.dll https://github.com/chinue/Fast-SSIM/raw/master/ssim.dll
+
+      - uses: FedericoCarboni/setup-ffmpeg@v3
+        id: setup-ffmpeg
+        with:
+          # A specific version to download, may also be "release" or a specific version
+          # like "6.1.0". At the moment semver specifiers (i.e. >=6.1.0) are supported
+          # only on Windows, on other platforms they are allowed but version is matched
+          # exactly regardless.
+          ffmpeg-version: release
+          # Target architecture of the ffmpeg executable to install. Defaults to the
+          # system architecture. Only x64 and arm64 are supported (arm64 only on Linux).
+          architecture: 'x64'
+          # Linking type of the binaries. Use "shared" to download shared binaries and 
+          # "static" for statically linked ones. Shared builds are currently only available
+          # for windows releases. Defaults to "static"
+          github-token: ${{ github.server_url == 'https://github.com' && github.token || '' }}
+      - run: ls ${{steps.setup-ffmpeg.outputs.ffmpeg-path}}
       
       # Setup Python
       - uses: actions/setup-python@v4
@@ -49,6 +73,10 @@ jobs:
           output-file: 土肥杯计时器
           include-data-dir: assets=assets
           windows-uac-admin: true
+          include-data-files: |
+            bin\*.dll=bin\
+            ${{steps.setup-ffmpeg.outputs.ffmpeg-path}}\*.exe=bin\
+
           
       # Uploads artifact
       - name: Upload Artifacts
